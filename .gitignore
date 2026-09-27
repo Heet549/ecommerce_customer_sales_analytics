@@ -1,0 +1,21 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Temporary SQLite databases created by validation scripts
+*.db
+
+# macOS metadata
+.DS_Store
+
+# Windows thumbnails
+Thumbs.db
+
+# Editor directories
+.vscode/
+.idea/

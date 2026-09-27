@@ -1,0 +1,123 @@
+================================================================================
+PHASE 1E - VALIDATION QUERIES EXECUTED (SQLite proxy for MySQL logic)
+================================================================================
+
+-- Row counts --
+    table_name  row_count
+0        users      10000
+1     products       2000
+2       orders      20000
+3  order_items      43525
+4       events      80000
+5      reviews      15000
+
+-- PK uniqueness check: users.user_id (expect 0 rows) --
+(0 rows returned)
+
+-- PK uniqueness check: products.product_id (expect 0 rows) --
+(0 rows returned)
+
+-- PK uniqueness check: orders.order_id (expect 0 rows) --
+(0 rows returned)
+
+-- PK uniqueness check: order_items.order_item_id (expect 0 rows) --
+(0 rows returned)
+
+-- PK uniqueness check: events.event_id (expect 0 rows) --
+(0 rows returned)
+
+-- PK uniqueness check: reviews.review_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: orders.user_id -> users.user_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: order_items.order_id -> orders.order_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: order_items.product_id -> products.product_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: events.user_id -> users.user_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: events.product_id -> products.product_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: reviews.order_id -> orders.order_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: reviews.product_id -> products.product_id (expect 0 rows) --
+(0 rows returned)
+
+-- FK orphan check: reviews.user_id -> users.user_id (expect 0 rows) --
+(0 rows returned)
+
+-- NULL check: users (expect all 0) --
+   null_user_id  null_name  null_email  null_gender  null_city  null_signup_date
+0             0          0           0            0          0                 0
+
+-- NULL check: orders (expect all 0) --
+   null_order_id  null_user_id  null_order_date  null_order_status  null_total_amount
+0              0             0                0                  0                  0
+
+-- NULL check: products (expect all 0) --
+   null_product_id  null_product_name  null_category  null_brand  null_price  null_rating
+0                0                  0              0           0           0            0
+
+-- NULL check: order_items (expect all 0) --
+   null_order_item_id  null_order_id  null_product_id  null_user_id  null_quantity  null_item_price  null_item_total
+0                   0              0                0             0              0                0                0
+
+-- NULL check: events (expect all 0) --
+   null_event_id  null_user_id  null_product_id  null_event_type  null_event_timestamp
+0              0             0                0                0                     0
+
+-- NULL check: reviews (expect all 0) --
+   null_review_id  null_order_id  null_product_id  null_user_id  null_rating  null_review_text  null_review_date
+0               0              0                0             0            0                 0                 0
+
+-- Duplicate full-row check: users (expect 0 rows) --
+(0 rows returned)
+
+-- Duplicate full-row check: products (expect 0 rows) --
+(0 rows returned)
+
+-- Duplicate full-row check: orders (expect 0 rows) --
+(0 rows returned)
+
+-- Date ranges --
+   min_signup  max_signup              min_order_date              max_order_date                min_event_ts                max_event_ts             min_review_date             max_review_date
+0  2024-01-01  2025-11-14  2024-01-01T00:14:17.631198  2025-11-14T23:17:25.548939  2024-01-01T00:09:40.129008  2025-11-14T23:36:10.745951  2024-01-01T01:23:05.575719  2025-11-14T23:26:42.246933
+
+-- KNOWN ISSUE - orders placed before customer signup_date --
+   orders_before_signup
+0                  9930
+
+-- KNOWN ISSUE - reviews dated before their order's order_date --
+   reviews_before_order
+0                  7455
+
+-- Numeric sanity: order_items.quantity <= 0 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: order_items.item_price < 0 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: order_items.item_total < 0 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: orders.total_amount < 0 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: products.price < 0 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: products.rating outside 1-5 (expect 0 rows) --
+(0 rows returned)
+
+-- Numeric sanity: reviews.rating outside 1-5 (expect 0 rows) --
+(0 rows returned)
+
+-- Cross-check: sum(order_items.item_total) per order vs orders.total_amount (expect 0 mismatching rows) --
+(0 rows returned)

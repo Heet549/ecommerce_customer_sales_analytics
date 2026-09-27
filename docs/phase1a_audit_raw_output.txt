@@ -1,0 +1,430 @@
+================================================================================
+PHASE 1A - FULL DATASET AUDIT
+================================================================================
+
+################################################################################
+# TABLE: users  (users.csv)
+################################################################################
+Rows: 10000
+Columns: 6
+Column names: ['user_id', 'name', 'email', 'gender', 'city', 'signup_date']
+
+-- dtypes (as read by pandas, before any cleaning) --
+user_id        str
+name           str
+email          str
+gender         str
+city           str
+signup_date    str
+
+-- missing values per column --
+             missing_count  missing_pct
+user_id                  0          0.0
+name                     0          0.0
+email                    0          0.0
+gender                   0          0.0
+city                     0          0.0
+signup_date              0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['user_id'] --
+   user_id: unique=10000 / total=10000  -> UNIQUE (possible PK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+   signup_date: min=2024-01-01 00:00:00  max=2025-11-14 00:00:00  unparsable_non_null=0
+
+-- numeric column summary --
+   (no native numeric columns detected)
+
+-- sample rows (head 3) --
+   user_id          name                      email gender            city signup_date
+0  U000001    Angel Hill   donaldgarcia@example.net  Other  New Roberttown  2025-03-13
+1  U000002  Jesse Guzman  jennifermiles@example.com   Male   South Bridget  2024-03-05
+2  U000003  Adam Shaffer      jpeterson@example.org   Male      Curtisfurt  2025-07-07
+
+################################################################################
+# TABLE: products  (products.csv)
+################################################################################
+Rows: 2000
+Columns: 6
+Column names: ['product_id', 'product_name', 'category', 'brand', 'price', 'rating']
+
+-- dtypes (as read by pandas, before any cleaning) --
+product_id          str
+product_name        str
+category            str
+brand               str
+price           float64
+rating          float64
+
+-- missing values per column --
+              missing_count  missing_pct
+product_id                0          0.0
+product_name              0          0.0
+category                  0          0.0
+brand                     0          0.0
+price                     0          0.0
+rating                    0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['product_id'] --
+   product_id: unique=2000 / total=2000  -> UNIQUE (possible PK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+
+-- numeric column summary --
+             price       rating
+count  2000.000000  2000.000000
+mean    200.342230     3.677615
+std     302.742395     0.686478
+min       1.110000     2.500000
+25%      36.335000     3.070000
+50%      84.220000     3.690000
+75%     210.817500     4.250000
+max    2338.130000     4.900000
+
+-- sample rows (head 3) --
+  product_id     product_name   category    brand   price  rating
+0    P000001         Astra Be   Clothing    Astra  157.89    4.08
+1    P000002  NeoTech Someone  Groceries  NeoTech   21.46    3.87
+2    P000003     Acme Discuss     Sports     Acme  265.37    3.46
+
+################################################################################
+# TABLE: orders  (orders.csv)
+################################################################################
+Rows: 20000
+Columns: 5
+Column names: ['order_id', 'user_id', 'order_date', 'order_status', 'total_amount']
+
+-- dtypes (as read by pandas, before any cleaning) --
+order_id            str
+user_id             str
+order_date          str
+order_status        str
+total_amount    float64
+
+-- missing values per column --
+              missing_count  missing_pct
+order_id                  0          0.0
+user_id                   0          0.0
+order_date                0          0.0
+order_status              0          0.0
+total_amount              0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['order_id', 'user_id'] --
+   order_id: unique=20000 / total=20000  -> UNIQUE (possible PK)
+   user_id: unique=8635 / total=20000  -> NOT unique (likely FK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+   order_date: min=2024-01-01 00:14:17.631198  max=2025-11-14 23:17:25.548939  unparsable_non_null=0
+
+-- numeric column summary --
+       total_amount
+count  20000.000000
+mean     595.933447
+std      776.063336
+min        1.110000
+25%      111.355000
+50%      308.195000
+75%      768.195000
+max     7950.740000
+
+-- sample rows (head 3) --
+    order_id  user_id                  order_date order_status  total_amount
+0  O00000001  U009310  2025-09-09T14:52:37.292731   processing        689.66
+1  O00000002  U003247  2025-04-15T01:18:27.193404    completed       1666.85
+2  O00000003  U007252  2025-04-27T15:37:48.008624   processing        665.06
+
+################################################################################
+# TABLE: order_items  (order_items.csv)
+################################################################################
+Rows: 43525
+Columns: 7
+Column names: ['order_item_id', 'order_id', 'product_id', 'user_id', 'quantity', 'item_price', 'item_total']
+
+-- dtypes (as read by pandas, before any cleaning) --
+order_item_id        str
+order_id             str
+product_id           str
+user_id              str
+quantity           int64
+item_price       float64
+item_total       float64
+
+-- missing values per column --
+               missing_count  missing_pct
+order_item_id              0          0.0
+order_id                   0          0.0
+product_id                 0          0.0
+user_id                    0          0.0
+quantity                   0          0.0
+item_price                 0          0.0
+item_total                 0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['order_item_id', 'order_id', 'product_id', 'user_id'] --
+   order_item_id: unique=43525 / total=43525  -> UNIQUE (possible PK)
+   order_id: unique=20000 / total=43525  -> NOT unique (likely FK)
+   product_id: unique=2000 / total=43525  -> NOT unique (likely FK)
+   user_id: unique=8635 / total=43525  -> NOT unique (likely FK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+
+-- numeric column summary --
+           quantity    item_price    item_total
+count  43525.000000  43525.000000  43525.000000
+mean       1.397312    196.636976    273.835013
+std        0.660717    297.259224    471.585104
+min        1.000000      1.110000      1.110000
+25%        1.000000     36.400000     44.590000
+50%        1.000000     83.170000    105.340000
+75%        2.000000    208.050000    274.980000
+max        3.000000   2338.130000   7014.390000
+
+-- sample rows (head 3) --
+  order_item_id   order_id product_id  user_id  quantity  item_price  item_total
+0     I00000001  O00000001    P001758  U009310         2        8.07       16.14
+1     I00000002  O00000001    P001119  U009310         1       74.08       74.08
+2     I00000003  O00000001    P001794  U009310         1      576.97      576.97
+
+################################################################################
+# TABLE: events  (events.csv)
+################################################################################
+Rows: 80000
+Columns: 5
+Column names: ['event_id', 'user_id', 'product_id', 'event_type', 'event_timestamp']
+
+-- dtypes (as read by pandas, before any cleaning) --
+event_id           str
+user_id            str
+product_id         str
+event_type         str
+event_timestamp    str
+
+-- missing values per column --
+                 missing_count  missing_pct
+event_id                     0          0.0
+user_id                      0          0.0
+product_id                   0          0.0
+event_type                   0          0.0
+event_timestamp              0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['event_id', 'user_id', 'product_id'] --
+   event_id: unique=80000 / total=80000  -> UNIQUE (possible PK)
+   user_id: unique=9995 / total=80000  -> NOT unique (likely FK)
+   product_id: unique=2000 / total=80000  -> NOT unique (likely FK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+   event_timestamp: min=2024-01-01 00:09:40.129008  max=2025-11-14 23:36:10.745951  unparsable_non_null=0
+
+-- numeric column summary --
+   (no native numeric columns detected)
+
+-- sample rows (head 3) --
+    event_id  user_id product_id event_type             event_timestamp
+0  E00000001  U009798    P001393       cart  2025-07-08T14:28:55.893919
+1  E00000002  U005881    P000669       view  2025-10-19T23:00:44.067982
+2  E00000003  U006348    P001404       view  2025-05-09T07:02:42.256662
+
+################################################################################
+# TABLE: reviews  (reviews.csv)
+################################################################################
+Rows: 15000
+Columns: 7
+Column names: ['review_id', 'order_id', 'product_id', 'user_id', 'rating', 'review_text', 'review_date']
+
+-- dtypes (as read by pandas, before any cleaning) --
+review_id        str
+order_id         str
+product_id       str
+user_id          str
+rating         int64
+review_text      str
+review_date      str
+
+-- missing values per column --
+             missing_count  missing_pct
+review_id                0          0.0
+order_id                 0          0.0
+product_id               0          0.0
+user_id                  0          0.0
+rating                   0          0.0
+review_text              0          0.0
+review_date              0          0.0
+
+-- duplicate full rows --
+Full duplicate rows: 0
+
+-- ID-like columns: ['review_id', 'order_id', 'product_id', 'user_id'] --
+   review_id: unique=15000 / total=15000  -> UNIQUE (possible PK)
+   order_id: unique=11070 / total=15000  -> NOT unique (likely FK)
+   product_id: unique=1999 / total=15000  -> NOT unique (likely FK)
+   user_id: unique=6660 / total=15000  -> NOT unique (likely FK)
+
+-- unique value counts for low-cardinality object columns (<=30 uniques) --
+
+-- date-like columns (by name or parse test) --
+   review_date: min=2024-01-01 01:23:05.575719  max=2025-11-14 23:26:42.246933  unparsable_non_null=0
+
+-- numeric column summary --
+             rating
+count  15000.000000
+mean       3.544667
+std        1.103669
+min        1.000000
+25%        3.000000
+50%        4.000000
+75%        4.000000
+max        5.000000
+
+-- sample rows (head 3) --
+   review_id   order_id product_id  user_id  rating                       review_text                 review_date
+0  R00000528  O00000237    P001326  U001094       2  Color was different from images.  2025-10-14T12:03:56.749446
+1  R00005792  O00002627    P000329  U001858       4      Highly recommend this brand.  2024-10-09T08:04:50.171793
+2  R00036604  O00016798    P001160  U008109       4      Highly recommend this brand.  2024-06-03T05:11:16.787214
+
+
+================================================================================
+CROSS-TABLE RELATIONSHIP CHECKS
+================================================================================
+
+orders.user_id  ->  users.user_id
+   distinct values in child: 8635
+   distinct values in parent: 10000
+   orphan values (in child but not in parent): 0
+
+order_items.order_id  ->  orders.order_id
+   distinct values in child: 20000
+   distinct values in parent: 20000
+   orphan values (in child but not in parent): 0
+
+order_items.product_id  ->  products.product_id
+   distinct values in child: 2000
+   distinct values in parent: 2000
+   orphan values (in child but not in parent): 0
+
+order_items.user_id  ->  users.user_id
+   distinct values in child: 8635
+   distinct values in parent: 10000
+   orphan values (in child but not in parent): 0
+
+events.user_id  ->  users.user_id
+   distinct values in child: 9995
+   distinct values in parent: 10000
+   orphan values (in child but not in parent): 0
+
+events.product_id  ->  products.product_id
+   distinct values in child: 2000
+   distinct values in parent: 2000
+   orphan values (in child but not in parent): 0
+
+reviews.order_id  ->  orders.order_id
+   distinct values in child: 11070
+   distinct values in parent: 20000
+   orphan values (in child but not in parent): 0
+
+reviews.product_id  ->  products.product_id
+   distinct values in child: 1999
+   distinct values in parent: 2000
+   orphan values (in child but not in parent): 0
+
+reviews.user_id  ->  users.user_id
+   distinct values in child: 6660
+   distinct values in parent: 10000
+   orphan values (in child but not in parent): 0
+
+-- Consistency check: does order_items.user_id match orders.user_id for the same order_id? --
+   Rows checked: 43525
+   Mismatched user_id rows: 0
+
+-- Consistency check: sum(order_items.item_total) per order vs orders.total_amount --
+   Orders with no matching order_items rows: 0
+   Orders where total_amount == sum(item_total) (rounded): 20000 / 20000
+   Orders where they differ: 0
+Empty DataFrame
+Columns: [order_id, total_amount, item_total, diff]
+Index: []
+
+-- events.event_type value counts --
+event_type
+view        56013
+cart        12035
+wishlist     7946
+purchase     4006
+
+-- orders.order_status value counts --
+order_status
+shipped       4113
+returned      4066
+completed     4021
+cancelled     3920
+processing    3880
+
+-- reviews.rating value counts --
+rating
+1     594
+2    2084
+3    4289
+4    4624
+5    3409
+
+-- products.category value counts --
+category
+Clothing          213
+Toys              213
+Pet Supplies      212
+Beauty            207
+Electronics       203
+Home & Kitchen    199
+Books             194
+Automotive        193
+Groceries         183
+Sports            183
+
+-- products.rating stats --
+count    2000.000000
+mean        3.677615
+std         0.686478
+min         2.500000
+25%         3.070000
+50%         3.690000
+75%         4.250000
+max         4.900000
+
+-- Sanity checks for impossible values --
+order_items: quantity <= 0 count = 0
+order_items: item_price < 0 count = 0
+order_items: item_total < 0 count = 0
+orders: total_amount < 0 count = 0
+products: price < 0 count = 0
+products: rating out of 1-5 range count = 0
+reviews: rating out of 1-5 range count = 0
+
+-- users.email basic format check --
+emails without '@': 0
+
+-- users duplicate checks --
+duplicate user_id: 0
+duplicate email: 0
